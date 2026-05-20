@@ -446,7 +446,7 @@ async function fazerLogin() {
     setTimeout(() => { window.location.href = 'dashboard.html'; }, 850);
 
   } catch {
-    showErr('Não foi possível ligar ao servidor. Verifique se o backend está activo na porta 3000.');
+    showErr('Não foi possível ligar ao servidor. Verifique se o backend está activo na porta 3000 por favor.');
   } finally {
     btn.disabled = false;
     btn.classList.remove('loading');
