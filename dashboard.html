@@ -1935,10 +1935,10 @@
     // ════════════════════════════════════════════════════════
     (function boot() {
       const token = localStorage.getItem('accessToken');
-      if (!token) { location.href = 'login.html'; return; }
+      if (!token) { location.href = 'index.html'; return; }
 
       try { _user = JSON.parse(localStorage.getItem('usuario') || '{}'); }
-      catch { location.href = 'login.html'; return; }
+      catch { location.href = 'index.html'; return; }
 
       _isAdmin = _user.nivel === 'Administrador';
 
