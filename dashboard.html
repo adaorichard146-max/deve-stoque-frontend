@@ -2906,15 +2906,12 @@
       // Linha dourada rodapé
       ctx.fillStyle = '#c8972a'; ctx.fillRect(0, totalH - 4, W, 4);
 
-     /* // Download como PNG
+      // Download como PNG
       const link = document.createElement('a');
       link.download = titulo.replace(/\s+/g, '_') + '_' + new Date().toISOString().slice(0, 10) + '.png';
       link.href = cv.toDataURL('image/png', 1.0);
       link.click();
-          const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-       doc.save(`${titulo}.pdf`);
-      showToast('Relatório exportado com sucesso!', 'ok');*/
+      showToast('Relatório exportado com sucesso!', 'ok');
     }
  
   </script>
