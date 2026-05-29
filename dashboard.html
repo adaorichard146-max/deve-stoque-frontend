@@ -11,6 +11,23 @@
    HÉLIO TRADING — Design System
    Fontes: sistema (Segoe UI / system-ui)
       ══════════════════════════════════════════════ */
+
+      /*Minhas alterações css*/
+.g2,
+.g3,
+.fr,
+.kpi-row,
+.toolbar,
+.tl,
+.card,
+#main,
+#content {
+  min-width: 0;
+}
+
+      /**/
+
+
     :root {
       --bg: #06080d;
       --bg2: #0b0f18;
@@ -38,10 +55,64 @@
       --t3: #505a72;
       --font: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       --mono: 'Consolas', 'Courier New', monospace;
-      --sw: 250px;
+      --sw: clamp(220px, 18vw, 250px);
       --th: 58px;
       --r: 11px;
       --rs: 7px;
+      --gutter: clamp(14px, 3.5vw, 26px);
+      --gutter-sm: clamp(10px, 2vw, 14px);
+      --gap-card: clamp(11px, 2vw, 16px);
+    }
+
+    /* ─── LIGHT THEME ─── */
+   body.light {
+      --bg: #f0f2f7;
+      --bg2: #e6e9f0;
+      --srf: #ffffff;
+      --srf2: #f5f6fa;
+      --srf3: #ebedf5;
+      --bdr: rgba(0,0,0,0.07);
+      --bdr2: rgba(0,0,0,0.12);
+      --bdr3: rgba(0,0,0,0.20);
+      --t1: #0f1520;
+      --t2: #3a4258;
+      --t3: #7a829a;
+      --gdim: rgba(200, 151, 42, 0.12);
+    }
+    body.light body::before { background-image: linear-gradient(rgba(200,151,42,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200,151,42,0.04) 1px, transparent 1px); }
+    body.light .topbar { background: rgba(240,242,247,.92); }
+    body.light .fg input, body.light .fg select, body.light .fg textarea { color: var(--t1); }
+    body.light .fg select option { background: var(--srf); color: var(--t1); }
+    body.light .fbar input[type=date] { color: var(--t1); }
+    body.light .srch input { color: var(--t1); }
+      
+  
+    /* ─── TRANSITIONS ─── */
+    body, #sidebar, .card, .kpi, .modal, .topbar, .fbar, .srch, table, thead th, tbody td {
+      transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+      min-width: 0;
+    }
+
+    /* ─── MOBILE HAMBURGER ─── */
+    .ham-btn {
+      display: none;
+      width: 36px; height: 36px;
+      border-radius: var(--rs);
+      border: 1px solid var(--bdr);
+      background: none; color: var(--t2);
+      align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px;
+      transition: all .14s;
+    }
+    .ham-btn:hover { border-color: var(--gold); color: var(--gold2); background: var(--gdim); }
+    .sb-overlay {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+    }
+    .sb-overlay.open { display: block; }
+
+    @media (max-width: 920px) {
+      .ham-btn { display: flex; }
     }
 
     *,
@@ -53,7 +124,7 @@
     }
 
     html {
-      font-size: 15px;
+      font-size: clamp(13px, 2vw, 15px);
       scroll-behavior: smooth;
     }
 
@@ -140,7 +211,8 @@
     }
 
     .sb-brand-text small {
-      font-size: 10px;
+      /*font-size: 10px;*/
+      line-height: 1.1;
       color: var(--t3);
     }
 
@@ -159,8 +231,8 @@
     }
 
     .sb-avatar {
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
       border-radius: 50%;
       border: 2px solid var(--gold);
@@ -345,14 +417,14 @@
       background: rgba(6, 8, 13, .88);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--bdr);
-      padding: 0 26px;
+      padding: 0 var(--gutter);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .topbar-title {
-      font-size: 16px;
+      font-size: clamp(13px, 2.5vw, 16px);
       font-weight: 700;
       letter-spacing: -.3px;
     }
@@ -398,7 +470,7 @@
 
     /* ─── CONTENT ─────────────────────────────── */
     #content {
-      padding: 24px 26px;
+      padding: var(--gutter);
       flex: 1;
     }
 
@@ -530,13 +602,13 @@
 
     .g2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2,minmax(0,1fr))/*1fr 1fr*/;
       gap: 16px;
     }
 
     .g3 {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3,minmax(0,1fr))/*1fr 1fr 1fr*/;
       gap: 16px;
     }
 
@@ -545,9 +617,20 @@
     }
 
     /* ─── TABLE ─────────────────────────────────── */
-    .tw {
+    /*.tw {
       overflow-x: auto;
-    }
+    }*/
+      .tw {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  } 
+
+.tw table {
+  width: max-content;
+  min-width: 100%;
+}
 
     table {
       width: 100%;
@@ -745,7 +828,9 @@
       font-size: 13px;
       font-family: var(--font);
       outline: none;
-      width: 185px;
+      /*width: 185px;*/
+      width: min(185px,100%);
+      min-width: 0;
     }
 
     .srch input::placeholder {
@@ -797,7 +882,7 @@
     /* ─── FORMS ─────────────────────────────────── */
     .fr {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2,minmax(0,1fr))/*1fr 1fr*/;
       gap: 13px;
     }
 
@@ -1057,7 +1142,7 @@
       font-size: 14px;
       transition: color .14s;
     }
-    
+
     .ci-rm:hover {
       color: var(--err);
     }
@@ -1210,7 +1295,8 @@
       border: 1px solid var(--bdr2);
       border-radius: 11px;
       padding: 12px 15px;
-      min-width: 280px;
+      /*min-width: 280px;*/
+      width: min(360px, calc(100vw - 24px));
       max-width: 360px;
       box-shadow: 0 10px 32px rgba(0, 0, 0, .55);
       animation: tsl .26s ease;
@@ -1288,31 +1374,72 @@
     }
 
     /* ─── RESPONSIVE ─────────────────────────────── */
-    @media (max-width: 920px) {
-      #sidebar {
-        transform: translateX(-100%);
-      }
-
-      #sidebar.open {
-        transform: translateX(0);
-      }
-
-      #main {
-        margin-left: 0;
-      }
-
-      .g2,
-      .g3,
-      .fr {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 1023px) {
+      .g3 { grid-template-columns: 1fr 1fr; }
+      .pgrid { grid-template-columns: repeat(auto-fill, minmax(clamp(100px, 18vw, 130px), 1fr)); }
     }
+
+    @media (max-width: 920px) {
+      .ham-btn { display: flex; }
+      #sidebar { transform: translateX(-100%); }
+      #sidebar.open { transform: translateX(0); }
+      #main { margin-left: 0; }
+      .g2, .g3, .fr { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .toolbar .btn, .toolbar .tl { width: 100%; }
+      .fbar { flex-direction: column; align-items: stretch; }
+      .fbar .fsep { display: none; }
+      .pgrid { grid-template-columns: repeat(auto-fill, minmax(clamp(90px, 16vw, 120px), 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      #content { padding: clamp(12px, 2.5vw, 18px); }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); gap: clamp(10px, 2vw, 14px); }
+      .topbar { height: clamp(50px, 12vw, 58px); }
+      .modal { max-width: clamp(280px, 85vw, 450px); }
+      .fbar { flex-direction: column; align-items: stretch; padding: clamp(7px, 2vw, 13px); }
+      table { font-size: clamp(11px, 1.5vw, 12px); }
+    }
+
+    @media (max-width: 640px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .g2 { grid-template-columns: 1fr; }
+      .modal { padding: clamp(14px, 3vw, 20px); }
+      .pgrid { grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 100px), 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      #content { padding: clamp(10px, 2vw, 14px); }
+      .kpi-val { font-size: clamp(16px, 3.5vw, 20px); }
+      .topbar-title { font-size: clamp(12px, 2vw, 14px); }
+      .btn { min-height: 40px; padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 14px); }
+      .fg input, .fg select, .fg textarea { min-height: 44px; padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 12px); }
+    }
+
+    @media (max-width: 360px) {
+      .g2, .g3 { gap: clamp(8px, 1.5vw, 12px); }
+      #content { padding: clamp(8px, 1.5vw, 12px); }
+      .kpi { padding: clamp(10px, 2vw, 14px); }
+      .card { padding: clamp(12px, 2.5vw, 16px); }
+      table { font-size: clamp(10px, 1.2vw, 11px); }
+      thead th { padding: clamp(4px, 1vw, 6px) clamp(6px, 1.5vw, 8px); }
+      tbody td { padding: clamp(6px, 1vw, 8px) clamp(6px, 1.5vw, 8px); }
+    }
+
+    @media (max-width: 920px) and (orientation: landscape) {
+      #sidebar { max-height: calc(100vh - var(--th)); overflow-y: auto; }
+      .sb-nav { max-height: calc(100vh - 280px); }
+      .topbar { height: auto; min-height: 50px; padding: 0 var(--gutter-sm); }
+    }
+ 
   </style>
 </head>
 
 <body>
 
   <!-- ══════════ SIDEBAR ══════════ -->
+  <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
   <aside id="sidebar">
     <div class="sb-brand">
       <div class="sb-logo"><img src="imagem/favicon.ico" style="border-radius: 100%;"></div>
@@ -1374,6 +1501,8 @@
         <button class="tb-icon" onclick="navTo('produtos')" title="Alertas de stock">
           🔔<span class="tb-dot" id="notif-dot" style="display:none"></span>
         </button>
+        <button class="tb-icon" id="theme-btn" onclick="toggleTheme()" title="Alternar tema">🌙</button>
+        <button class="ham-btn" id="ham-btn" onclick="toggleSidebar()" title="Menu">☰</button>
       </div>
     </header>
 
@@ -1405,6 +1534,12 @@
             <div class="kpi-ico">💰</div>
             <div class="kpi-lbl">Receita Total</div>
             <div class="kpi-val" id="kv-receita">—</div>
+          </div>
+          <div class="kpi gn adm-el">
+            <div class="kpi-orb"></div>
+            <div class="kpi-ico">📈</div>
+            <div class="kpi-lbl">Lucro Bruto Est.</div>
+            <div class="kpi-val" id="kv-lucro">—</div>
           </div>
         </div>
         <div class="g2 mb">
@@ -1493,7 +1628,9 @@
                   <th>Nome</th>
                   <th>Categoria</th>
                   <th>Fornecedor</th>
-                  <th>Preço</th>
+                  <th>P. Compra</th>
+                  <th>P. Venda</th>
+                  <th>Margem</th>
                   <th>Stock</th>
                   <th>Mín.</th>
                   <th class="adm-el">Acções</th>
@@ -1605,6 +1742,7 @@
           <button class="btn btn-gh" style="font-size:12px" onclick="exportFinPDF()">📄 Exportar PDF</button>
         </div>
         <div class="kpi-row" id="fin-kpis" style="margin-bottom:16px"></div>
+        <div class="kpi-row" id="fin-kpis2" style="margin-bottom:16px"></div>
         <div class="g2 mb">
           <div class="card">
             <div class="card-t"><span>📈</span>Faturamento por Dia</div>
@@ -1620,6 +1758,7 @@
                     <th>Produto</th>
                     <th>Qtd Vendida</th>
                     <th>Receita</th>
+                    <th>Lucro Est.</th>
                   </tr>
                 </thead>
                 <tbody id="tb-top"></tbody>
@@ -1678,7 +1817,9 @@
                   <th>Produto</th>
                   <th>Categoria</th>
                   <th>Fornecedor</th>
-                  <th>Preço</th>
+                  <th>P. Compra</th>
+                  <th>P. Venda</th>
+                  <th>Margem</th>
                   <th>Stock</th>
                   <th>Valor Total</th>
                 </tr>
@@ -1781,8 +1922,10 @@
         <h2 id="mp-title">Novo Produto</h2><button class="mcls" onclick="closeM('m-prod')">✕</button>
       </div>
       <div class="fr">
-        <div class="fg"><label>Nome *</label><input type="text" id="mp-n"></div>
-        <div class="fg"><label>Preço (Kz) *</label><input type="number" id="mp-p" min="0" step="0.01"></div>
+        <div class="fg full"><label>Nome *</label><input type="text" id="mp-n"></div>
+        <div class="fg"><label>💰 Preço de Compra (Kz) *</label><input type="number" id="mp-pc" min="0" step="0.01" placeholder="Custo do fornecedor" oninput="calcMargem()"></div>
+        <div class="fg"><label>🏷️ Preço de Venda (Kz) *</label><input type="number" id="mp-p" min="0" step="0.01" placeholder="Preço ao cliente" oninput="calcMargem()"></div>
+        <div class="fg"><label>Margem de Lucro</label><div id="mp-margem" style="padding:10px 13px;border-radius:var(--rs);background:var(--srf3);border:1px solid var(--bdr);font-weight:700;font-size:13px;color:var(--ok)">—</div></div>
         <div class="fg"><label>Quantidade *</label><input type="number" id="mp-q" min="0"></div>
         <div class="fg"><label>Stock Mínimo</label><input type="number" id="mp-qm" min="0" value="5"></div>
         <div class="fg"><label>Categoria</label><select id="mp-cat">
@@ -1907,8 +2050,7 @@
     // ════════════════════════════════════════════════════════
     // CONSTANTES E ESTADO GLOBAL
     // ════════════════════════════════════════════════════════
-   const API_URL = 'https://dev-stock-backend.onrender.com';
-    const API = 'https://dev-stock-backend.onrender.com';
+    const API = 'http://localhost:3000';
 
     let _user = {};
     let _isAdmin = false;
@@ -1936,10 +2078,10 @@
     // ════════════════════════════════════════════════════════
     (function boot() {
       const token = localStorage.getItem('accessToken');
-      if (!token) { location.href = 'index.html'; return; }
+      if (!token) { location.href = 'login.html'; return; }
 
       try { _user = JSON.parse(localStorage.getItem('usuario') || '{}'); }
-      catch { location.href = 'index.html'; return; }
+      catch { location.href = 'login.html'; return; }
 
       _isAdmin = _user.nivel === 'Administrador';
 
@@ -1957,6 +2099,9 @@
         document.querySelectorAll('.adm-el').forEach(el => { el.style.display = 'none'; });
       }
 
+      // Aplicar tema guardado
+      applyTheme();
+
       // Carregar dados iniciais
       carregarProdutos().then(() => {
         checkStockBaixo();
@@ -1968,6 +2113,7 @@
     // NAVEGAÇÃO
     // ════════════════════════════════════════════════════════
     function navTo(page) {
+      closeSidebar(); // Fechar sidebar no mobile
       // Bloquear páginas admin no frontend
       const adminOnly = ['rel-fin', 'rel-est', 'users'];
       if (!_isAdmin && adminOnly.includes(page)) {
@@ -2045,7 +2191,7 @@
         apiFetch('/logout', { method: 'POST', body: JSON.stringify({ refreshToken: rt }) }).catch(() => { });
       }
       localStorage.clear();
-      location.href = 'index.html';
+      location.href = 'login.html';
     }
 
     // ════════════════════════════════════════════════════════
@@ -2062,6 +2208,20 @@
         const vs = await rV.json();
 
         document.getElementById('kv-prods').textContent = ps.length;
+        // Lucro estimado
+        setTimeout(() => {
+          const lucroEl = document.getElementById('kv-lucro');
+          if (lucroEl) {
+            const lucroVal = ps.reduce((s,p) => {
+              if (p.preco_compra > 0) {
+                // estimativa simples: margem * qtd vendida hoje (aproximação)
+                return s; // será calculado melhor no rel-fin
+              }
+              return s;
+            }, 0);
+            lucroEl.textContent = '↗ Ver Fin.';
+          }
+        }, 100);
 
         const hoje = new Date().toISOString().split('T')[0];
         document.getElementById('kv-vendas').textContent = vs.filter(v => (v.data_venda || '').startsWith(hoje)).length;
@@ -2131,12 +2291,18 @@
     function renderProds() {
       const tb = document.getElementById('tb-prods');
       if (!_prods.length) {
-        tb.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-ico">📦</div><p>Nenhum produto cadastrado</p></div></td></tr>`; return;
+        tb.innerHTML = `<tr><td colspan="9"><div class="empty"><div class="empty-ico">📦</div><p>Nenhum produto cadastrado</p></div></td></tr>`; return;
       }
       tb.innerHTML = _prods.map(p => {
         const low = p.quantidade <= p.quantidade_minima;
         const zero = p.quantidade === 0;
         const stBd = zero ? `<span class="bd rd">🔴 Esgotado</span>` : low ? `<span class="bd wn">⚠️ ${p.quantidade}</span>` : `<span class="bd gn">${p.quantidade}</span>`;
+        const pc = Number(p.preco_compra || 0);
+        const pv = Number(p.preco || 0);
+        const margem = pc > 0 ? ((pv - pc) / pc * 100).toFixed(1) : null;
+        const margemHtml = margem !== null
+          ? `<span class="bd ${parseFloat(margem) >= 0 ? 'gn' : 'rd'}">${margem}%</span>`
+          : `<span style="color:var(--t3)">—</span>`;
         const acoes = _isAdmin ? `
       <button class="btn btn-gh btn-xs" onclick='editarProduto(${JSON.stringify(p)})'>✏️</button>
       <button class="btn btn-er btn-xs" onclick="pedirDel('produto',${p.id},'${esc(p.nome)}')">🗑️</button>` : '';
@@ -2144,7 +2310,9 @@
       <td>${esc(p.nome)}</td>
       <td>${p.categoria ? `<span class="bd bl">${esc(p.categoria)}</span>` : '<span style="color:var(--t3)">—</span>'}</td>
       <td>${esc(p.fornecedor || '—')}</td>
-      <td style="font-family:var(--mono);font-weight:700;color:var(--ok)">${fmtKz(p.preco)}</td>
+      <td style="font-family:var(--mono);font-weight:700;color:var(--info)">${fmtKz(pc)}</td>
+      <td style="font-family:var(--mono);font-weight:700;color:var(--ok)">${fmtKz(pv)}</td>
+      <td>${margemHtml}</td>
       <td>${stBd}</td>
       <td>${p.quantidade_minima}</td>
       <td class="adm-el">${acoes}</td>
@@ -2184,28 +2352,48 @@
     function abrirProduto() {
       _editId = null;
       document.getElementById('mp-title').textContent = 'Novo Produto';
-      ['mp-n', 'mp-p', 'mp-q'].forEach(id => document.getElementById(id).value = '');
+      ['mp-n', 'mp-pc', 'mp-p', 'mp-q'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('mp-qm').value = '5';
       document.getElementById('mp-cat').value = '';
       document.getElementById('mp-forn').value = '';
+      document.getElementById('mp-margem').textContent = '—';
+      document.getElementById('mp-margem').style.color = 'var(--ok)';
       openM('m-prod');
+    }
+
+    function calcMargem() {
+      const pc = parseFloat(document.getElementById('mp-pc').value) || 0;
+      const pv = parseFloat(document.getElementById('mp-p').value) || 0;
+      const el = document.getElementById('mp-margem');
+      if (pc > 0 && pv > 0) {
+        const m = ((pv - pc) / pc * 100).toFixed(1);
+        const lucro = fmtKz(pv - pc);
+        el.textContent = `${m >= 0 ? '+' : ''}${m}% (${lucro} por unidade)`;
+        el.style.color = m >= 0 ? 'var(--ok)' : 'var(--err)';
+      } else {
+        el.textContent = '—';
+        el.style.color = 'var(--t3)';
+      }
     }
 
     function editarProduto(p) {
       _editId = p.id;
       document.getElementById('mp-title').textContent = 'Editar Produto';
       document.getElementById('mp-n').value = p.nome;
+      document.getElementById('mp-pc').value = p.preco_compra || '';
       document.getElementById('mp-p').value = p.preco;
       document.getElementById('mp-q').value = p.quantidade;
       document.getElementById('mp-qm').value = p.quantidade_minima;
       document.getElementById('mp-cat').value = p.categoria_id || '';
       document.getElementById('mp-forn').value = p.fornecedor_id || '';
+      calcMargem();
       openM('m-prod');
     }
 
     async function salvarProduto() {
       const body = {
         nome: document.getElementById('mp-n').value.trim(),
+        preco_compra: parseFloat(document.getElementById('mp-pc').value) || null,
         preco: parseFloat(document.getElementById('mp-p').value),
         quantidade: parseInt(document.getElementById('mp-q').value),
         quantidade_minima: parseInt(document.getElementById('mp-qm').value) || 5,
@@ -2213,7 +2401,7 @@
         fornecedor_id: document.getElementById('mp-forn').value || null
       };
       if (!body.nome || isNaN(body.preco) || isNaN(body.quantidade))
-        return showToast('Preencha nome, preço e quantidade.', 'err');
+        return showToast('Preencha nome, preço de venda e quantidade.', 'err');
       const r = await apiFetch(_editId ? `/produtos/${_editId}` : '/produtos', {
         method: _editId ? 'PUT' : 'POST', body: JSON.stringify(body)
       });
@@ -2341,9 +2529,18 @@
 
     function exportMovsPDF() {
       if (!_movsData.length) { showToast('Sem dados para exportar.', 'warn'); return; }
+      const entradas = _movsData.filter(m => m.tipo === 'entrada').reduce((s,m)=>s+Number(m.quantidade),0);
+      const saidas = _movsData.filter(m => m.tipo === 'saida').reduce((s,m)=>s+Number(m.quantidade),0);
+      const summary = [
+        { label: 'Total Registos', value: _movsData.length },
+        { label: 'Total Entradas', value: entradas },
+        { label: 'Total Saídas', value: saidas },
+        { label: 'Saldo', value: entradas - saidas },
+      ];
       gerarPDF('Relatório de Movimentações',
         ['Produto', 'Tipo', 'Quantidade', 'Motivo', 'Utilizador', 'Data'],
-        _movsData.map(m => [m.produto || '—', m.tipo.toUpperCase(), m.quantidade, m.motivo || '—', m.usuario || '—', fmtDate(m.data)])
+        _movsData.map(m => [m.produto || '—', m.tipo.toUpperCase(), m.quantidade, m.motivo || '—', m.usuario || '—', fmtDate(m.data)]),
+        summary
       );
     }
 
@@ -2357,12 +2554,15 @@
       const filtrado = _prods.filter(p => p.nome.toLowerCase().includes(q));
       const grid = document.getElementById('prod-grid');
       if (!filtrado.length) { grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><p>Nenhum produto encontrado</p></div>`; return; }
-      grid.innerHTML = filtrado.map(p => `
-    <div class="ptile${p.quantidade <= 0 ? ' zero' : ''}" onclick="${p.quantidade > 0 ? 'addCarrinho(' + p.id + ')' : ''}">
+      grid.innerHTML = filtrado.map(p => {
+        const margem = p.preco_compra > 0 ? ((p.preco - p.preco_compra)/p.preco_compra*100).toFixed(0) : null;
+        return `<div class="ptile${p.quantidade <= 0 ? ' zero' : ''}" onclick="${p.quantidade > 0 ? 'addCarrinho(' + p.id + ')' : ''}">
       <div class="pt-n">${esc(p.nome)}</div>
       <div class="pt-p">${fmtKz(p.preco)}</div>
+      ${margem !== null ? `<div style="font-size:10.5px;color:var(--gold2);font-weight:600">Margem: ${margem}%</div>` : ''}
       <div class="pt-s">${p.quantidade <= 0 ? '❌ Sem stock' : '✅ ' + p.quantidade + ' un.'}</div>
-    </div>`).join('');
+    </div>`;
+      }).join('');
     }
 
     function addCarrinho(id) {
@@ -2441,16 +2641,33 @@
         const { resumo, porDia, topProdutos } = _finData;
         console.log(_finData)
         document.getElementById('fin-kpis').innerHTML = `
-      <div class="kpi gn"><div class="kpi-orb"></div><div class="kpi-ico">💰</div><div class="kpi-lbl">Faturamento</div><div class="kpi-val">${fmtKz(resumo.faturamento)}</div></div>
+      <div class="kpi gn"><div class="kpi-orb"></div><div class="kpi-ico">💰</div><div class="kpi-lbl">Faturamento (Receita)</div><div class="kpi-val">${fmtKz(resumo.faturamento)}</div></div>
       <div class="kpi gd"><div class="kpi-orb"></div><div class="kpi-ico">🛒</div><div class="kpi-lbl">Nº Vendas</div><div class="kpi-val">${resumo.total_vendas}</div></div>
       <div class="kpi bl"><div class="kpi-orb"></div><div class="kpi-ico">📊</div><div class="kpi-lbl">Ticket Médio</div><div class="kpi-val">${fmtKz(resumo.ticket_medio)}</div></div>
       <div class="kpi rd"><div class="kpi-orb"></div><div class="kpi-ico">🏆</div><div class="kpi-lbl">Maior Venda</div><div class="kpi-val">${fmtKz(resumo.maior_venda)}</div></div>`;
+        // Lucro bruto vindo do backend (quando preco_compra está preenchido)
+        const lucroB = resumo.lucro_bruto !== undefined ? Number(resumo.lucro_bruto) : null;
+        const custoB = resumo.custo_total !== undefined ? Number(resumo.custo_total) : null;
+        const margemB = lucroB !== null && Number(resumo.faturamento) > 0
+          ? (lucroB / Number(resumo.faturamento) * 100).toFixed(1) : null;
+        const valorStockCusto = _prods.reduce((s,p)=>s+Number(p.preco_compra||0)*Number(p.quantidade),0);
+        document.getElementById('fin-kpis2').innerHTML = `
+      <div class="kpi ${lucroB >= 0 ? 'gn' : 'rd'}"><div class="kpi-orb"></div><div class="kpi-ico">📈</div><div class="kpi-lbl">Lucro Bruto Real</div><div class="kpi-val">${lucroB !== null ? fmtKz(lucroB) : '—'}</div></div>
+      <div class="kpi bl"><div class="kpi-orb"></div><div class="kpi-ico">🏭</div><div class="kpi-lbl">Custo das Vendas</div><div class="kpi-val">${custoB !== null ? fmtKz(custoB) : '—'}</div></div>
+      <div class="kpi gd"><div class="kpi-orb"></div><div class="kpi-ico">💹</div><div class="kpi-lbl">Margem Bruta</div><div class="kpi-val">${margemB !== null ? margemB + '%' : '—'}</div></div>
+      <div class="kpi rd"><div class="kpi-orb"></div><div class="kpi-ico">💎</div><div class="kpi-lbl">Valor Stock (Custo)</div><div class="kpi-val">${fmtKz(valorStockCusto)}</div></div>`;
 
         document.getElementById('tb-top').innerHTML = topProdutos.length
-          ? topProdutos.map((p, i) => `<tr>
+          ? topProdutos.map((p, i) => {
+              const lucroP = p.lucro_estimado !== undefined ? Number(p.lucro_estimado) : null;
+              return `<tr>
           <td><span class="bd gd">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '#' + (i + 1)}</span></td>
-          <td>${esc(p.nome)}</td><td style="font-weight:700">${p.total_vendido}</td>
-          <td style="color:var(--ok);font-weight:700">${fmtKz(p.receita)}</td></tr>`).join('')
+          <td>${esc(p.nome)}</td>
+          <td style="font-weight:700">${p.total_vendido}</td>
+          <td style="color:var(--ok);font-weight:700">${fmtKz(p.receita)}</td>
+          <td style="color:var(--info);font-weight:700">${lucroP !== null && lucroP !== 0 ? fmtKz(lucroP) : '—'}</td>
+          </tr>`;
+            }).join('')
           : `<tr><td colspan="4"><div class="empty"><p>Sem dados</p></div></td></tr>`;
 
         document.getElementById('tb-fin-dias').innerHTML = porDia.length
@@ -2470,16 +2687,19 @@
     function limparFin() { document.getElementById('fin-ini').value = ''; document.getElementById('fin-fim').value = ''; carregarFin(); }
     function exportFinPDF() {
       if (!_finData) { showToast('Carregue o relatório primeiro.', 'warn'); return; }
-      const { resumo, porDia } = _finData;
+      const { resumo, porDia, topProdutos } = _finData;
+      const lucro = resumo.lucro_bruto !== undefined ? Number(resumo.lucro_bruto) : null;
+      const summary = [
+        { label: 'Faturamento', value: fmtKz(resumo.faturamento) },
+        { label: 'Nº Vendas', value: resumo.total_vendas },
+        { label: 'Ticket Médio', value: fmtKz(resumo.ticket_medio) },
+        { label: 'Lucro Bruto', value: lucro !== null ? fmtKz(lucro) : 'N/D' },
+      ];
       gerarPDF('Relatório Financeiro',
         ['Dia', 'Nº Vendas', 'Faturamento', 'Ticket Médio', 'Maior Venda'],
-        porDia.map(d => [fmtDateS(d.dia), d.total_vendas, fmtKz(d.faturamento), fmtKz(d.ticket_medio), fmtKz(d.maior_venda)])
+        porDia.map(d => [fmtDateS(d.dia), d.total_vendas, fmtKz(d.faturamento), fmtKz(d.ticket_medio), fmtKz(d.maior_venda)]),
+        summary
       );
-      gerarpdf('Relatório Financeiro',
-        ['Dia', 'Nº Vendas', 'Faturamento', 'Ticket Médio', 'Maior Venda'],
-        porDia.map(d => [fmtDateS(d.dia), d.total_vendas, fmtKz(d.faturamento), fmtKz(d.ticket_medio), fmtKz(d.maior_venda)])
-      );
-
     }
 
     // ════════════════════════════════════════════════════════
@@ -2507,21 +2727,41 @@
           <td><span class="bd ${p.quantidade === 0 ? 'rd' : 'wn'}">${p.quantidade === 0 ? '🔴 Esgotado' : '🟠 Crítico'}</span></td></tr>`).join('')
           : `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--ok)">✅ Nenhum produto com stock crítico</td></tr>`;
 
-        document.getElementById('tb-est-all').innerHTML = ps.map(p => `<tr>
+        document.getElementById('tb-est-all').innerHTML = ps.map(p => {
+          const pc = Number(p.preco_compra || 0);
+          const pv = Number(p.preco || 0);
+          const mg = pc > 0 ? ((pv-pc)/pc*100).toFixed(1) : null;
+          return `<tr>
       <td>${esc(p.nome)}</td>
       <td>${p.categoria ? `<span class="bd bl">${esc(p.categoria)}</span>` : '—'}</td>
       <td>${esc(p.fornecedor || '—')}</td>
-      <td style="font-family:var(--mono);font-weight:700">${fmtKz(p.preco)}</td>
+      <td style="font-family:var(--mono);font-weight:700;color:var(--info)">${fmtKz(pc)}</td>
+      <td style="font-family:var(--mono);font-weight:700;color:var(--ok)">${fmtKz(pv)}</td>
+      <td>${mg !== null ? `<span class="bd ${parseFloat(mg)>=0?'gn':'rd'}">${mg}%</span>` : '—'}</td>
       <td><span class="bd ${p.quantidade <= p.quantidade_minima ? 'wn' : 'gn'}">${p.quantidade}</span></td>
-      <td style="color:var(--ok);font-weight:700">${fmtKz(p.valor_total)}</td></tr>`).join('');
+      <td style="color:var(--ok);font-weight:700">${fmtKz(p.valor_total)}</td></tr>`;
+        }).join('');
       } catch (e) { console.error(e); showToast('Erro ao gerar relatório de estoque.', 'err'); }
     }
 
     function exportEstPDF() {
       if (!_estData) { showToast('Carregue o relatório primeiro.', 'warn'); return; }
+      const { produtos: ps, valorTotal, totalUnidades, baixo } = _estData;
+      const summary = [
+        { label: 'Total Produtos', value: ps.length },
+        { label: 'Total Unidades', value: totalUnidades },
+        { label: 'Valor Stock (Venda)', value: fmtKz(valorTotal) },
+        { label: 'Stock Crítico', value: baixo.length },
+      ];
       gerarPDF('Relatório de Estoque',
-        ['Produto', 'Categoria', 'Fornecedor', 'Preço', 'Stock', 'Valor Total'],
-        _estData.produtos.map(p => [p.nome, p.categoria || '—', p.fornecedor || '—', fmtKz(p.preco), p.quantidade, fmtKz(p.valor_total)])
+        ['Produto', 'Categoria', 'Fornecedor', 'P. Compra', 'P. Venda', 'Margem', 'Stock', 'Valor Total'],
+        ps.map(p => {
+          const pc = Number(p.preco_compra || 0);
+          const pv = Number(p.preco || 0);
+          const mg = pc > 0 ? ((pv-pc)/pc*100).toFixed(1)+'%' : '—';
+          return [p.nome, p.categoria || '—', p.fornecedor || '—', fmtKz(pc), fmtKz(pv), mg, p.quantidade, fmtKz(p.valor_total)];
+        }),
+        summary
       );
     }
 
@@ -2847,71 +3087,178 @@
     }
 
     // ════════════════════════════════════════════════════════
-    // PDF — Canvas nativo (sem libs externas)
+    // PDF — jsPDF + AutoTable (profissional)
     // ════════════════════════════════════════════════════════
-    function gerarPDF(titulo, headers, rows) {
-      const W = 1122, RH = 22, HH = 28, TOPH = 56, PADH = 70;
-      const totalH = Math.max(1587, PADH + TOPH + HH + rows.length * RH + 60);
-      const cv = document.createElement('canvas');
-      cv.width = W; cv.height = totalH;
-      const ctx = cv.getContext('2d');
+    function gerarPDF(titulo, headers, rows, summaryRows) {
+      try {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          showToast('Biblioteca jsPDF não carregada. Verifique o caminho dos ficheiros.', 'err'); return;
+        }
+        const { jsPDF } = window.jspdf;
+        const isLandscape = headers.length > 5;
+        const doc = new jsPDF({ orientation: isLandscape ? 'landscape' : 'portrait', unit: 'mm', format: 'a4' });
+        const pw = doc.internal.pageSize.getWidth();
+        const ph = doc.internal.pageSize.getHeight();
+        const gold = [200, 151, 42];
+        const dark = [15, 21, 32];
+        const grey = [90, 100, 120];
 
-      // Fundo branco
-      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, totalH);
+        // ── HEADER BAR ──
+        doc.setFillColor(...dark);
+        doc.rect(0, 0, pw, 22, 'F');
+        doc.setFillColor(...gold);
+        doc.rect(0, 20, pw, 2, 'F');
 
-      // Header empresa
-      ctx.fillStyle = '#0f1520'; ctx.fillRect(0, 0, W, TOPH);
-      ctx.fillStyle = '#c8972a'; ctx.font = 'bold 18px sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText('📦 HÉLIO TRADING', 40, 34);
-      ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.font = '10.5px sans-serif';
-      ctx.fillText('Sistema de Gestão ERP', 40, 48);
-      ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.textAlign = 'right';
-      ctx.fillText('Gerado em: ' + new Date().toLocaleString('pt-PT'), W - 40, 34);
-      ctx.fillText(titulo, W - 40, 48);
+        // Logo box
+        doc.setFillColor(...gold);
+        doc.roundedRect(8, 4, 14, 14, 2, 2, 'F');
+        doc.setTextColor(15, 9, 0);
+        doc.setFontSize(9); doc.setFont(undefined, 'bold');
+        doc.text('HT', 15, 13, { align: 'center' });
 
-      let y = PADH;
-      // Título
-      ctx.fillStyle = '#111'; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText(titulo, 40, y); y += 26;
-      ctx.strokeStyle = '#e0e4ee'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(40, y); ctx.lineTo(W - 40, y); ctx.stroke(); y += 12;
+        // Company name
+        doc.setTextColor(...gold);
+        doc.setFontSize(11); doc.setFont(undefined, 'bold');
+        doc.text('HÉLIO TRADING', 26, 10);
+        doc.setTextColor(180, 190, 210);
+        doc.setFontSize(7); doc.setFont(undefined, 'normal');
+        doc.text('Sistema de Gestão ERP', 26, 15);
 
-      // Header tabela
-      const colW = (W - 80) / headers.length;
-      ctx.fillStyle = '#f4f6fb'; ctx.fillRect(40, y, W - 80, HH);
-      ctx.strokeStyle = '#d8dceb'; ctx.lineWidth = .5; ctx.strokeRect(40, y, W - 80, HH);
-      ctx.fillStyle = '#444d60'; ctx.font = 'bold 10.5px sans-serif';
-      headers.forEach((h, i) => { ctx.fillText(h, 40 + colW * i + 7, y + 18); });
-      y += HH;
+        // Date + titulo right
+        doc.setTextColor(180, 190, 210);
+        doc.setFontSize(7);
+        doc.text(new Date().toLocaleString('pt-PT'), pw - 8, 9, { align: 'right' });
+        doc.text(titulo, pw - 8, 15, { align: 'right' });
 
-      // Rows
-      ctx.font = '11px sans-serif';
-      rows.forEach((row, ri) => {
-        ctx.fillStyle = ri % 2 === 0 ? '#fafbfe' : '#ffffff';
-        ctx.fillRect(40, y, W - 80, RH);
-        ctx.strokeStyle = '#eaecf4'; ctx.lineWidth = .3; ctx.strokeRect(40, y, W - 80, RH);
-        ctx.fillStyle = '#3a4258';
-        row.forEach((cell, i) => {
-          const txt = String(cell ?? '—');
-          ctx.fillText(txt.length > 24 ? txt.slice(0, 24) + '…' : txt, 40 + colW * i + 7, y + 14);
+        // ── REPORT TITLE ──
+        doc.setTextColor(...dark);
+        doc.setFontSize(13); doc.setFont(undefined, 'bold');
+        doc.text(titulo, 8, 32);
+        doc.setDrawColor(...gold);
+        doc.setLineWidth(0.5);
+        doc.line(8, 34, pw - 8, 34);
+
+        // ── SUMMARY ROWS (KPIs) ──
+        let startY = 38;
+        if (summaryRows && summaryRows.length) {
+          const cols = Math.min(4, summaryRows.length);
+          const boxW = (pw - 16 - (cols-1)*3) / cols;
+          summaryRows.slice(0, cols).forEach((item, i) => {
+            const x = 8 + i*(boxW+3);
+            doc.setFillColor(245, 247, 252);
+            doc.setDrawColor(220, 225, 238);
+            doc.roundedRect(x, startY, boxW, 14, 2, 2, 'FD');
+            doc.setTextColor(...grey);
+            doc.setFontSize(6); doc.setFont(undefined, 'bold');
+            doc.text(String(item.label || '').toUpperCase(), x+3, startY+5);
+            doc.setTextColor(...dark);
+            doc.setFontSize(9); doc.setFont(undefined, 'bold');
+            doc.text(String(item.value || ''), x+3, startY+11);
+          });
+          startY += 20;
+        }
+
+        // ── TABLE ──
+        doc.autoTable({
+          head: [headers],
+          body: rows.map(r => r.map(c => String(c ?? '—'))),
+          startY: startY,
+          margin: { left: 8, right: 8 },
+          styles: {
+            fontSize: 8,
+            cellPadding: { top: 3, right: 4, bottom: 3, left: 4 },
+            textColor: [30, 40, 60],
+            lineColor: [220, 225, 238],
+            lineWidth: 0.3,
+            overflow: 'ellipsize',
+          },
+          headStyles: {
+            fillColor: dark,
+            textColor: gold,
+            fontStyle: 'bold',
+            fontSize: 7.5,
+            halign: 'left',
+          },
+          alternateRowStyles: { fillColor: [248, 249, 253] },
+          rowStyles: { fillColor: [255, 255, 255] },
+          columnStyles: {},
+          didDrawPage: (data) => {
+            // Footer on each page
+            const pg = doc.internal.getCurrentPageInfo().pageNumber;
+            const total = doc.internal.getNumberOfPages();
+            doc.setFillColor(...gold);
+            doc.rect(0, ph - 8, pw, 8, 'F');
+            doc.setTextColor(15, 9, 0);
+            doc.setFontSize(6.5); doc.setFont(undefined, 'normal');
+            doc.text(`Hélio Trading ERP  ·  ${titulo}  ·  ${new Date().toLocaleDateString('pt-PT')}  ·  ${rows.length} registo(s)`, 8, ph - 3);
+            doc.text(`Pág. ${pg} / ${total}`, pw - 8, ph - 3, { align: 'right' });
+          }
         });
-        y += RH;
-      });
 
-      // Totais / footer
-      y += 20;
-      ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(`Hélio Trading ERP · ${titulo} · ${new Date().toLocaleDateString('pt-PT')} · Total: ${rows.length} registos`, W / 2, y);
+        // ── SAVE ──
+        const filename = titulo.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '') + '_' + new Date().toISOString().slice(0, 10) + '.pdf';
+        doc.save(filename);
+        showToast('✅ PDF exportado com sucesso!', 'ok');
+      } catch(e) {
+        console.error('PDF error:', e);
+        showToast('Erro ao gerar PDF: ' + e.message, 'err');
+      }
+    }
 
-      // Linha dourada rodapé
-      ctx.fillStyle = '#c8972a'; ctx.fillRect(0, totalH - 4, W, 4);
+    // ════════════════════════════════════════════════════════
+    // HELPERS DE LUCRO
+    // ════════════════════════════════════════════════════════
+    function calcularLucroEstimado() {
+      // Estima lucro com base nos preços de compra/venda dos produtos
+      if (!_prods.length) return null;
+      const prodsComCusto = _prods.filter(p => p.preco_compra > 0);
+      if (!prodsComCusto.length) return null;
+      // Se temos dados de vendas, calcular por produto vendido
+      if (_finData && _finData.topProdutos && _finData.topProdutos.length) {
+        let lucro = 0;
+        _finData.topProdutos.forEach(tp => {
+          const prod = _prods.find(p => p.id === tp.produto_id || p.nome === tp.nome);
+          if (prod && prod.preco_compra > 0) {
+            const margem = Number(prod.preco) - Number(prod.preco_compra);
+            lucro += margem * Number(tp.total_vendido || 0);
+          }
+        });
+        return lucro;
+      }
+      return null;
+    }
 
-      // Download como PNG
-      const link = document.createElement('a');
-      link.download = titulo.replace(/\s+/g, '_') + '_' + new Date().toISOString().slice(0, 10) + '.png';
-      link.href = cv.toDataURL('image/png', 1.0);
-      link.click();
-      showToast('Relatório exportado com sucesso!', 'ok');
+    // ════════════════════════════════════════════════════════
+    // THEME TOGGLE
+    // ════════════════════════════════════════════════════════
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light');
+      document.getElementById('theme-btn').textContent = isLight ? '☀️' : '🌙';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    function applyTheme() {
+      const t = localStorage.getItem('theme') || 'dark';
+      if (t === 'light') {
+        document.body.classList.add('light');
+        const btn = document.getElementById('theme-btn');
+        if (btn) btn.textContent = '☀️';
+      }
+    }
+
+    // ════════════════════════════════════════════════════════
+    // MOBILE SIDEBAR
+    // ════════════════════════════════════════════════════════
+    function toggleSidebar() {
+      const sb = document.getElementById('sidebar');
+      const ov = document.getElementById('sb-overlay');
+      sb.classList.toggle('open');
+      ov.classList.toggle('open');
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sb-overlay').classList.remove('open');
     }
  
   </script>
